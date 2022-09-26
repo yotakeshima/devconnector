@@ -1,7 +1,13 @@
+//mongoDB Connection
+
+
 const mongoose = require('mongoose');
 const config = require('config');
+
+//Grabs any values in the config.json file
 const db = config.get('mongoURI');
 
+//Called in the server.js
 const connectDB = async () => {
     try{ 
         await mongoose.connect(db, {
