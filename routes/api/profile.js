@@ -14,7 +14,7 @@ const User = require('../../models/User');
 router.get('/me', auth, async (req, res) => {
     try{
         // Looks for an existing user ID for a profile
-        //.populate method, adds a user's name and avatarfrom User model. 
+        //.populate method, adds a user's name and avatar from User model. 
         const profile = await Profile.findOne({ user: req.user.id }).populate('user', 
         ['name', 'avatar']);
         if(!profile){
@@ -135,6 +135,25 @@ router.get('/user/:user_id', async (req, res) => {
         if(err.kind == 'ObjectId'){
             return res.status(400).json({ msg: 'Profile not found' });
         }
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   DELETE api/profile/
+// @desc    Delete profile, user, & posts
+// @access  Private (or private: You need to send a token to that route, in order for it to work.)
+
+router.delete('/', auth, async (req, res) => {
+    try {
+        // @todo - remove users posts
+        // Remove profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+        // Remove user
+        await User.findOneAndRemove({ _id: req.user.id });
+        res.json({ msg: 'User deleted' });
+        
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
