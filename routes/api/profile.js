@@ -167,21 +167,21 @@ router.delete("/", auth, async (req, res) => {
 });
 
 // @route   PUT api/profile/experience
-// @desc    add profile experience
+// @desc    Add profile experience
 // @access  Private (or private: You need to send a token to that route, in order for it to work.)
 router.put(
   "/experience",
   [
     auth,
     [
-      check("title", "Title is required").not().isEmpty,
-      check("company", "Company is required").not().isEmpty,
-      check("from", "from date is required").not().isEmpty,
+      check("title", "Title is required").not().isEmpty(),
+      check("company", "Company is required").not().isEmpty(),
+      check("from", "from date is required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty) {
+    if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
@@ -208,7 +208,7 @@ router.put(
       // Returns the whole profile
       res.json(profile);
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
       res.status(500).send("Server Error");
     }
   }
