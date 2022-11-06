@@ -5,6 +5,7 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const { findOne } = require("../../models/User");
 
 //Use router to create a route
 
@@ -164,5 +165,53 @@ router.delete("/", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// @route   PUT api/profile/experience
+// @desc    add profile experience
+// @access  Private (or private: You need to send a token to that route, in order for it to work.)
+router.put(
+  "/experience",
+  [
+    auth,
+    [
+      check("title", "Title is required").not().isEmpty,
+      check("company", "Company is required").not().isEmpty,
+      check("from", "from date is required").not().isEmpty,
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { title, company, location, from, to, current, description } =
+      req.body;
+
+    const newExp = {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      // UNSHIFT adds to the front of the array instead of the end...
+      profile.experience.unshift(newExp);
+
+      await profile.save();
+
+      // Returns the whole profile
+      res.json(profile);
+    } catch (err) {
+      console.err(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 module.exports = router;
