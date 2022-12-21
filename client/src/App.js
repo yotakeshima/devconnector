@@ -19,9 +19,6 @@ const App = () => (
           <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
-      {/* <section className="container"> */}
-
-      {/* </section> */}
     </Fragment>
   </Router>
 );
