@@ -1,17 +1,18 @@
-import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
-import PropTypes from "prop-types";
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 // import axios from "axios";
 
 // setAlert is destructured from props...
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
   });
 
   const { name, email, password, password2 } = formData;
@@ -22,9 +23,9 @@ const Register = ({ setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("Passwords do not match", "danger");
+      setAlert('Passwords do not match', 'danger');
     } else {
-      console.log("SUCCESS");
+      register({ name, email, password });
       // // ACCESSING THE BACKEND REGISTERING A USER EXAMPLE
       // const newUser = {
       //   name,
@@ -112,6 +113,7 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
