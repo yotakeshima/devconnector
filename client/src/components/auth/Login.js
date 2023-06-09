@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+// import { use } from '../../../../routes/api/auth';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -22,8 +23,9 @@ const Login = ({ login, isAuthenticated }) => {
 
   // Redirect if logged in
   if (isAuthenticated) {
-    return redirect('/dashboard');
+    return <Navigate to="/dashboard" />;
   }
+
   return (
     <Fragment>
       <h1 className="large text-primary">Sign In</h1>
