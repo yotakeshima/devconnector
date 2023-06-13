@@ -3,11 +3,15 @@ import { Outlet, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const PrivateRoute = ({ auth: { isAuthenticated, loading }, ...props }) => {
+const PrivateRoute = ({
+  component: Component,
+  auth: { isAuthenticated, loading },
+  ...rest
+}) => {
   if (!loading && !isAuthenticated) {
     return <Navigate to="/login" />;
   }
-  return <Outlet {...props} />;
+  return <Outlet {...rest} />;
 };
 
 PrivateRoute.propTypes = {
