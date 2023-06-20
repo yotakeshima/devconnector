@@ -7,6 +7,8 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
+import AddExperience from './components/profile-forms/AddExperience';
+import AddEducation from './components/profile-forms/AddEducation';
 import PrivateRoute from './components/routing/PrivateRoutes';
 
 // Redux
@@ -33,15 +35,17 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path='/' element={<Landing />} />
             <Route element={<ContainerLayout />}>
               <Route element={<PrivateRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/create-profile" element={<CreateProfile />} />
-                <Route path="/edit-profile" element={<EditProfile />} />
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/create-profile' element={<CreateProfile />} />
+                <Route path='/edit-profile' element={<EditProfile />} />
+                <Route path='/add-experience' element={<AddExperience />} />
+                <Route path='/add-education' element={<AddEducation />} />
               </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
             </Route>
           </Routes>
         </Fragment>
