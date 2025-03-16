@@ -80,4 +80,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-If you have any questions or issues, feel free to reach out via GitHub issues or contact me at [your-email@example.com].
+If you have any questions or issues, feel free to reach out via GitHub issues or contact me at [yoshinoritakeshima.stfe@gmail.com].
