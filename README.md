@@ -19,7 +19,6 @@ DevConnector is a full-stack social networking platform for developers, built us
 - React.js
 - Redux
 - Axios
-- Bootstrap
 
 ### Backend:
 - Node.js
